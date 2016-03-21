@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Daniel Sanchez"/>
+    <title>User Login</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    
+</head>
+<body>
+    <div class="jumbotron">
+        <div class="container">
+            <h1 th:inline="text">Hello [[${httpRequest.remoteUser}]]</h1>
+        </div>
+    </div>
+    <form th:action="@{/logout}" method="post">
+        <input class="btn btn-lg btn-primary btn-block" type="submit" value="Sign Out"/>
+    </form>
+</body>
+</html>
