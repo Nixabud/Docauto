@@ -5,7 +5,7 @@ spring:
   
   thymeleaf:
     cache: false # Enable template caching.
-#    check-template-location: true # Check that the templates location exists.
+    check-template-location: true # Check that the templates location exists.
     content-type: text/html # Content-Type value.
     encoding: UTF-8 # Template encoding.
     mode: HTML5 # Template mode to be applied to templates. See also StandardTemplateModeHandlers.
@@ -17,7 +17,6 @@ spring:
   jpa:
     hibernate.ddl-auto: update
     database: oracle
-# DATASOURCE
   datasource:
     platform: oracle
     url: "jdbc:oracle:thin:@"
