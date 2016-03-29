@@ -1,4 +1,4 @@
-package com.sysview.model;
+package com.sysview.docauto.model;
 
 public class Plataforma {
 

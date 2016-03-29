@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.sysview.service.PlataformaService;
+import com.sysview.docauto.service.PlataformaService;
 
 @Controller
 @RequestMapping("/")

@@ -1,4 +1,4 @@
-package com.sysview.dao.impl;
+package com.sysview.docauto.dao.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,8 +10,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
-import com.sysview.dao.PlataformaDAO;
-import com.sysview.model.Plataforma;
+import com.sysview.docauto.dao.PlataformaDAO;
+import com.sysview.docauto.model.Plataforma;
 
 @Component ("plataformaDAO")
 public class PlataformaDAOImpl implements PlataformaDAO{

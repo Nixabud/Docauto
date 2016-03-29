@@ -1,13 +1,13 @@
-package com.sysview.service.impl;
+package com.sysview.docauto.service.impl;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sysview.dao.PlataformaDAO;
-import com.sysview.model.Plataforma;
-import com.sysview.service.PlataformaService;
+import com.sysview.docauto.dao.PlataformaDAO;
+import com.sysview.docauto.model.Plataforma;
+import com.sysview.docauto.service.PlataformaService;
 
 @Service("plataformaService")
 public class PlataformaServiceImpl implements PlataformaService{

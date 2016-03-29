@@ -1,7 +1,7 @@
-package com.sysview.dao;
+package com.sysview.docauto.dao;
 import java.util.List;
 
-import com.sysview.model.Plataforma;
+import com.sysview.docauto.model.Plataforma;
 
 public interface PlataformaDAO {
 	
