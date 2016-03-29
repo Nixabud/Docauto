@@ -1,0 +1,10 @@
+com\sysview\dao\impl\PlataformaDAOImpl.class
+com\sysview\docauto\Application.class
+com\sysview\dao\impl\PlataformaDAOImpl$1.class
+com\sysview\dao\PlataformaDAO.class
+com\sysview\docauto\controller\LoginController.class
+com\sysview\docauto\controller\HomeController.class
+com\sysview\service\impl\PlataformaServiceImpl.class
+com\sysview\docauto\WebSecurityConfigurer.class
+com\sysview\model\Plataforma.class
+com\sysview\service\PlataformaService.class
