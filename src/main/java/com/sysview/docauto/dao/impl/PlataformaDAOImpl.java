@@ -32,7 +32,7 @@ public class PlataformaDAOImpl implements PlataformaDAO{
 		log.debug("consultando plataformas...");
         
         List<Plataforma> plataformas = jdbcTemplate.query(
-        "select * from plataforma",
+        "select * from PLATAFORMA",
         new RowMapper<Plataforma>() {
             public Plataforma mapRow(ResultSet rs, int rowNum) throws SQLException {
                 Plataforma plataforma = new Plataforma(rs.getString(1));

@@ -1,18 +1,22 @@
+server.port: 8080
+
 spring:
-thymeleaf:
-  cache: false # Enable template caching.
-  check-template-location: true # Check that the templates location exists.
-  content-type: text/html # Content-Type value.
-  encoding: UTF-8 # Template encoding.
-  mode: HTML5 # Template mode to be applied to templates. See also StandardTemplateModeHandlers.
-datasource:
-  platform: oracle
-  url: "jdbc:oracle:thin:@localhost:1521:orcl"
-  username: dapresentaciones12
-  password: sysview12
-  driverClassName: "oracle.jdbc.driver.OracleDriver"
-  initialize: false
+  profiles.active: dev
+  
+  thymeleaf:
+    cache: false # Enable template caching.
+#    check-template-location: true # Check that the templates location exists.
+#    content-type: text/html # Content-Type value.
+#    encoding: UTF-8 # Template encoding.
+#    mode: HTML5 # Template mode to be applied to templates. See also StandardTemplateModeHandlers.
+  datasource:
+    platform: oracle
+    url: "jdbc:oracle:thin:@localhost:1521:orcl"
+    username: dapresentaciones12
+    password: sysview12
+    driverClassName: "oracle.jdbc.driver.OracleDriver"
+    initialize: false  
 # LOGGING
-logging:
-  level:
-    com.sysview: DEBUG # Log levels severity mapping. For instance `logging.level.org.springframework=DEBUG`
+#logging:
+#  level: 
+#    com.cube5: DEBUG # Log levels severity mapping. For instance `logging.level.org.springframework:DEBUG`
