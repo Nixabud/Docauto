@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 import com.sysview.docauto.dao.ClaseDAO;
 import com.sysview.docauto.model.Clase;
-import com.sysview.docauto.model.Filter;
 
 @Component("claseDao")
 public class ClaseDAOImpl implements ClaseDAO {
@@ -23,15 +22,7 @@ public class ClaseDAOImpl implements ClaseDAO {
     @Autowired
     JdbcTemplate jdbcTemplate;
     
-    
-    public void init() {
-        log.debug("creando tabla clase...");
-    }
-
-    public Clase getClaseById(String claseId) {
-        return null;
-    }
-    
+    @Override
     public List<Clase> getClases() {
         log.debug("consultando clases...");
         
@@ -45,54 +36,6 @@ public class ClaseDAOImpl implements ClaseDAO {
         });
         log.debug("clases: {}", clases.toString());
         return clases;
-    }
-    
-    public List<Clase> findBySistemas(String sistemaId) {
-        log.debug("consultando clases segun el sistema...");
-        
-        List<Clase> clases = jdbcTemplate.query(
-        "select distinct CLASEID from CONSULTA where SISTEMAID=?",
-        new Object[]{sistemaId},
-        new RowMapper<Clase>() {
-            public Clase mapRow(ResultSet rs, int rowNum) throws SQLException {
-                Clase claseps = new Clase(rs.getString(1));
-                return claseps;
-            }
-        });
-        log.debug("clases: {}", clases.toString());
-        return clases;
-    }
-    
-    public List<Clase> findByPlataformas(String plataformaId) {
-        log.debug("consultando clases segun la plataforma...");
-        
-        List<Clase> clasep = jdbcTemplate.query(
-        "select distinct CLASEID from CONSULTA where PLATAFORMAID=?",
-        new Object[]{plataformaId},
-        new RowMapper<Clase>() {
-            public Clase mapRow(ResultSet rs, int rowNum) throws SQLException {
-                Clase clasepp = new Clase(rs.getString(1));
-                return clasepp;
-            }
-        });
-        log.debug("clases: {}", clasep.toString());
-        return clasep;
-    }
-    
-    public List<Clase> findByBibliotecas(String bibliotecaId) {
-        log.debug("consultando clases segun la plataforma...");
-        
-        List<Clase> clasefb = jdbcTemplate.query(
-        "select distinct CLASEID from CONSULTA where BIBLIOTECAID=?",
-        new Object[]{bibliotecaId},
-        new RowMapper<Clase>() {
-            public Clase mapRow(ResultSet rs, int rowNum) throws SQLException {
-                Clase clasepb = new Clase(rs.getString(1));
-                return clasepb;
-            }
-        });
-        log.debug("clases: {}", clasefb.toString());
-        return clasefb;
     }
 
 	@Override
@@ -117,7 +60,7 @@ public class ClaseDAOImpl implements ClaseDAO {
 		log.debug("consultando Plataformas en base al sistema...");
         
         List<Clase> clasefbp = jdbcTemplate.query(
-        "select distinct CLASEID from CONSULTA where SISTEMAID=?",
+        "select distinct CLASEID from CONSULTA where PLATAFORMAID=?",
         new Object[]{plataformaId},
         new RowMapper<Clase>() {
             public Clase mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -134,7 +77,7 @@ public class ClaseDAOImpl implements ClaseDAO {
 		log.debug("consultando Plataformas en base al sistema...");
         
         List<Clase> clasefbb = jdbcTemplate.query(
-        "select distinct CLASEID from CONSULTA where SISTEMAID=?",
+        "select distinct CLASEID from CONSULTA where BIBLIOTECAID=?",
         new Object[]{bibliotecaId},
         new RowMapper<Clase>() {
             public Clase mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -144,12 +87,6 @@ public class ClaseDAOImpl implements ClaseDAO {
         });
         log.debug("sistemas: {}", clasefbb.toString());
         return clasefbb;
-	}
-
-	@Override
-	public List<Clase> getClase() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

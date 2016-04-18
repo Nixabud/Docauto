@@ -6,11 +6,7 @@ import com.sysview.docauto.model.Clase;
 
 public interface ClaseDAO {
 
-	void init();
-	
-	List<Clase> getClase();
-    
-    Clase getClaseById(String claseId);
+	List<Clase> getClases();
         
 	List<Clase> filterByPlataforma(String sistemaId);
 	

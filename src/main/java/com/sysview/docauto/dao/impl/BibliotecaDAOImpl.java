@@ -13,8 +13,6 @@ import org.springframework.stereotype.Component;
 
 import com.sysview.docauto.dao.BibliotecaDAO;
 import com.sysview.docauto.model.Biblioteca;
-import com.sysview.docauto.model.Filter;
-import com.sysview.docauto.model.Sistema;
 
 @Component("bibliotecaDao")
 public class BibliotecaDAOImpl implements BibliotecaDAO {
@@ -24,14 +22,7 @@ public class BibliotecaDAOImpl implements BibliotecaDAO {
     @Autowired
     JdbcTemplate jdbcTemplate;
     
-    public void init() {
-        log.debug("creando tabla biblioteca...");
-    }
-
-    public Biblioteca getBibliotecaById(String bibliotecaId) {
-        return null;
-    }
-    
+    @Override
     public List<Biblioteca> getBibliotecas() {
         log.debug("consultando bibliotecas...");
         
@@ -41,54 +32,6 @@ public class BibliotecaDAOImpl implements BibliotecaDAO {
             public Biblioteca mapRow(ResultSet rs, int rowNum) throws SQLException {
                 Biblioteca biblioteca = new Biblioteca(rs.getString(1));
                 return biblioteca;
-            }
-        });
-        log.debug("clases: {}", bibliotecas.toString());
-        return bibliotecas;
-    }
-    
-    public List<Biblioteca> findBySistema(String sistemaId) {
-        log.debug("consultando bibliotecas segun el sistema...");
-        
-        List<Biblioteca> bibliotecas = jdbcTemplate.query(
-        "select distinct BIBLIOTECAID from CONSULTA where SISTEMAID=?",
-        new Object[]{sistemaId},
-        new RowMapper<Biblioteca>() {
-            public Biblioteca mapRow(ResultSet rs, int rowNum) throws SQLException {
-                Biblioteca bibliotecaps = new Biblioteca(rs.getString(1));
-                return bibliotecaps;
-            }
-        });
-        log.debug("clases: {}", bibliotecas.toString());
-        return bibliotecas;
-    }
-    
-    public List<Biblioteca> findByPlataforma(String plataformaId) {
-        log.debug("consultando bibliotecas segun la plataforma...");
-        
-        List<Biblioteca> bibliotecasp = jdbcTemplate.query(
-        "select distinct BIBLIOTECAID from CONSULTA where PLATAFORMAID=?",
-        new Object[]{plataformaId},
-        new RowMapper<Biblioteca>() {
-            public Biblioteca mapRow(ResultSet rs, int rowNum) throws SQLException {
-                Biblioteca bibliotecapp = new Biblioteca(rs.getString(1));
-                return bibliotecapp;
-            }
-        });
-        log.debug("clases: {}", bibliotecasp.toString());
-        return bibliotecasp;
-    }
-    
-    public List<Biblioteca> findByClase(String claseId) {
-        log.debug("consultando bibliotecas segun la clase...");
-        
-        List<Biblioteca> bibliotecas = jdbcTemplate.query(
-        "select distinct BIBLIOTECAID from CONSULTA where CLASEID=?",
-        new Object[]{claseId},
-        new RowMapper<Biblioteca>() {
-            public Biblioteca mapRow(ResultSet rs, int rowNum) throws SQLException {
-                Biblioteca bibliotecapc = new Biblioteca(rs.getString(1));
-                return bibliotecapc;
             }
         });
         log.debug("clases: {}", bibliotecas.toString());
@@ -144,12 +87,6 @@ log.debug("consultando Plataformas en base a la clase...");
         });
         log.debug("sistemas: {}", bibliotecafs.toString());
         return bibliotecafs;
-	}
-
-	@Override
-	public List<Sistema> filterByBiblioteca(String bibliotecaId) {
-		// TODO Auto-generated method stub
-		return null;
 	}
   
 }

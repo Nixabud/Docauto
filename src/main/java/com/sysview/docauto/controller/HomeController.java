@@ -34,7 +34,7 @@ public class HomeController {
     public String home(Model model) {
         List<Plataforma> plataformas = plataformaService.getPlataformas();
         List<Sistema> sistemas = sistemaService.getSistemas();
-        List<Clase> clases = claseService.getClase();
+        List<Clase> clases = claseService.getClases();
         List<Biblioteca> bibliotecas = bibliotecaService.getBibliotecas();
         model.addAttribute("plataformas", plataformas);
         model.addAttribute("sistemas", sistemas);

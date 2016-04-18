@@ -7,10 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sysview.docauto.dao.PlataformaDAO;
 import com.sysview.docauto.dao.SistemaDAO;
-import com.sysview.docauto.model.Filter;
-import com.sysview.docauto.model.Plataforma;
 import com.sysview.docauto.model.Sistema;
 import com.sysview.docauto.service.SistemaService;
 
@@ -22,28 +19,9 @@ public class SistemaServiceImpl implements SistemaService{
     @Autowired
     private SistemaDAO sistemaDao;
     
-    public void initialize() {
-        sistemaDao.init();
-    }
-    
-    public Sistema getSistemaById(String sistemaId) {
-        return null;
-    }
-    
-	public List<Sistema> findByPlataforma(String plataformaId) {
-        return sistemaDao.filterByPlataforma(plataformaId);
-    }
-
 	@Override
 	public List<Sistema> getSistemas() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Filter filterBySistema(String sistemaId) {
-		// TODO Auto-generated method stub
-		return null;
+		return sistemaDao.getSistemas();
 	}
 
 }

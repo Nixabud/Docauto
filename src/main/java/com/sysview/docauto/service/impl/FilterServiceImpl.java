@@ -1,7 +1,5 @@
 package com.sysview.docauto.service.impl;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +15,13 @@ import com.sysview.docauto.service.FilterService;
 
 @Service("filterService")
 public class FilterServiceImpl implements FilterService {
+	
+	private static final Logger log = LoggerFactory.getLogger(FilterServiceImpl.class);
+	
 	@Autowired PlataformaDAO plataformaDao;
 	@Autowired SistemaDAO sistemaDao;
 	@Autowired ClaseDAO claseDao;
 	@Autowired BibliotecaDAO bibliotecaDao;
-	
-	private static final Logger log = LoggerFactory.getLogger(FilterServiceImpl.class);
 	    
 	@Override
 	public Filter filterBySistema(String sistemaId){
@@ -63,9 +62,4 @@ public class FilterServiceImpl implements FilterService {
             return filter;
 	}
 
-	@Override
-	public void initialize() {
-		// TODO Auto-generated method stub
-		
-	}
 }

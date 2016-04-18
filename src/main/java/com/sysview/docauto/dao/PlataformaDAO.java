@@ -6,11 +6,7 @@ import com.sysview.docauto.model.Plataforma;
 
 public interface PlataformaDAO {
     
-    void init();
-    
-    List<Plataforma> getPlataformas();    
-    
-    Plataforma getPlataformaById(String plataformaId);
+    List<Plataforma> getPlataformas();
    
     List<Plataforma> filterByBiblioteca(String bibliotecaId);
     

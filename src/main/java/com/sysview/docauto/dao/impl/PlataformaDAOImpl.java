@@ -12,11 +12,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import com.sysview.docauto.dao.PlataformaDAO;
-import com.sysview.docauto.model.Biblioteca;
-import com.sysview.docauto.model.Clase;
-import com.sysview.docauto.model.Filter;
 import com.sysview.docauto.model.Plataforma;
-import com.sysview.docauto.model.Sistema;
 
 @Component("plataformaDao")
 public class PlataformaDAOImpl implements PlataformaDAO {
@@ -24,16 +20,6 @@ public class PlataformaDAOImpl implements PlataformaDAO {
     private JdbcTemplate jdbcTemplate;
     
     private static final Logger log = LoggerFactory.getLogger(PlataformaDAOImpl.class);
-    
-    @Override
-    public void init() {
-        log.debug("creando tabla plataforma...");
-    }
-
-    @Override
-    public Plataforma getPlataformaById(String plataformaId) {
-        return null;
-    }
     
     @Override
     public List<Plataforma> getPlataformas() {
