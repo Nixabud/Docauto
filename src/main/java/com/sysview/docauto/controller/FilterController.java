@@ -18,34 +18,26 @@ import com.sysview.docauto.service.SistemaService;
 @RestController
 public class FilterController {
 	
-
 	@Autowired
-	private SistemaService sistemaService;
-	@Autowired
-	private PlataformaService plataformaService;
-	@Autowired
-	private ClaseService claseService;
-	@Autowired
-	private BibliotecaService bibliotecaService;
-	 
-	 
+	private FilterService filterService;
+	
 	@RequestMapping("filterBy/plataforma/{plataformaId}") 
 	public Filter filterByPlataforma(@PathVariable String plataformaId) {
-	return plataformaService.filterByPlataforma(plataformaId);
+	    return filterService.filterByPlataforma(plataformaId);
 	}
 	
 	@RequestMapping("filterBy/sistema/{sistemaId}") 
 	public Filter filterBySistema(@PathVariable String sistemaId) {
-	return sistemaService.filterBySistema(sistemaId);
+	    return filterService.filterBySistema(sistemaId);
 	}
 	
 	@RequestMapping("filterBy/clase/{claseId}") 
 	public Filter filterByClase(@PathVariable String claseId) {
-	return claseService.filterByClase(claseId);
+	    return filterService.filterByClase(claseId);
 	}
 	
 	@RequestMapping("filterBy/biblioteca/{bibliotecaId}") 
 	public Filter filterByBiblioteca(@PathVariable String bibliotecaId) {
-	return bibliotecaService.filterByBiblioteca(bibliotecaId);
+	    return filterService.filterByBiblioteca(bibliotecaId);
 	}
 }
