@@ -47,9 +47,7 @@
             </select>
         </div>
     </div>
-    <form th:action="@{/logout}" method="post">
-        <button class="btn btn-lg btn-primary" type="submit">Buscar componente</button>
-    </form>
+      <button id="buscar" class="btn btn-lg btn-primary" type="button">Buscar componente</button>
       <form th:action="@{/logout}" method="post">
         <button class="btn btn-lg btn-primary" type="submit">Sign Out</button>
     </form>
@@ -68,11 +66,11 @@
             var plataformaId = $plataformas.val(); // obtenemos la plataforma seleccionada
             $.getJSON('/filterBy/plataforma/' + plataformaId, function(filter) {
                 console.log(filter);
-                updateSistemas(filter.sistemas)
+                updateSistemas(filter.sistemas);
                 updateBibliotecas(filter.bibliotecas);
                 updateClases(filter.clases);
             });
-        })
+        });
         
         $sistemas.on('change', function() {
             console.log('filtrando por sistema');
@@ -83,7 +81,7 @@
                 updateBibliotecas(filter.bibliotecas);
                 updateClases(filter.clases);
             });
-        })
+        });
         
         $bibliotecas.on('change', function() {
             console.log('filtrando por biblioteca');
@@ -91,10 +89,10 @@
             $.getJSON('/filterBy/biblioteca/' + bibliotecaId, function(filter) {
                 console.log(filter);
                 updatePlataformas(filter.plataformas);
-                updateSistemas(filter.sistemas)
+                updateSistemas(filter.sistemas);
                 updateClases(filter.clases);
             });
-        })
+        });
         
         $clases.on('change', function() {
             console.log('filtrando por clase');
@@ -102,31 +100,37 @@
             $.getJSON('/filterBy/clase/' + claseId, function(filter) {
                 console.log(filter);
                 updatePlataformas(filter.plataformas);
-                updateSistemas(filter.sistemas)
+                updateSistemas(filter.sistemas);
                 updateBibliotecas(filter.bibliotecas);
             });
-        })
+        });
         
-        function updatePlatformas(plataformas) {
-            $.each(filter.plataformas, function(index, plataforma) {
+        $('#buscar').on('click', function() {
+            $.getJSON('/componentes/', function(componentes) {
+                console.log(componentes);
+            });
+        });
+        
+        function updatePlataformas(plataformas) {
+            $.each(plataformas, function(index, plataforma) {
                 $plataformas.html('<option val="'+ plataforma.plataformaId +'">'+  plataforma.plataformaId +'</option>');
             });
         }
         
         function updateSistemas(sistemas) {
-            $.each(filter.sistemas, function(index, sistema) {
+            $.each(sistemas, function(index, sistema) {
                 $sistemas.html('<option val="'+ sistema.sistemaId +'">'+  sistema.sistemaId +'</option>');
             });
         }
         
         function updateBibliotecas(bibliotecas) {
-            $.each(filter.bibliotecas, function(index, biblioteca) {
+            $.each(bibliotecas, function(index, biblioteca) {
                 $bibliotecas.html('<option val="'+ biblioteca.bibliotecaId +'">'+  biblioteca.bibliotecaId +'</option>');
             });
         }
         
         function updateClases(clases) {
-            $.each(filter.clases, function(index, clase) {
+            $.each(clases, function(index, clase) {
                 $clases.html('<option val="'+ clase.claseId +'">'+  clase.claseId +'</option>');
             });
         }

@@ -8,6 +8,6 @@ import com.sysview.docauto.model.Filter;
 
 public interface ComponenteService {
 		
-		List<Componente> filterByComponente(Filter filter);
+		List<Componente> filterByComponente(Componente componente);
 		
 	}

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.sysview.docauto.dao.ComponenteDAO;
 import com.sysview.docauto.model.Componente;
-import com.sysview.docauto.model.Filter;
 import com.sysview.docauto.service.ComponenteService;
 
 
@@ -17,9 +16,8 @@ public class ComponenteServiceImpl implements ComponenteService{
 	@Autowired 
 	private ComponenteDAO componenteDao;
 	@Override
-	public List<Componente> filterByComponente(Filter filter) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Componente> filterByComponente(Componente componente) {
+	    return componenteDao.findcomponente(componente);
 	}
 
 }
