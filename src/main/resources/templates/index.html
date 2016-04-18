@@ -150,10 +150,12 @@
                     plataformaId: $plataformas.val(),
                     sistemaId: $sistemas.val(),
                     bibliotecaId: $bibliotecas.val(),
-                    claseId: $clases.val()
+                    claseId: $clases.val(),
+                    componenteId: ''
                 },
                 success: function(componentes) {
                     console.log(componentes);
+//                    $componenteTbl.rows.add(componentes);
                 }
             });
 
