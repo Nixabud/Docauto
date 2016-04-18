@@ -58,6 +58,83 @@
          
     <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
     <script>
+        var $plataformas = $('#plataformas');
+        var $sistemas = $('#sistemas');
+        var $bibliotecas = $('#bibliotecas');
+        var $clases = $('#clases');
+        
+        $plataformas.on('change', function() {
+            console.log('filtrando por plataforma');
+            var plataformaId = $plataformas.val(); // obtenemos la plataforma seleccionada
+            $.getJSON('/filterBy/plataforma/' + plataformaId, function(filter) {
+                console.log(filter);
+                updateSistemas(filter.sistemas)
+                updateBibliotecas(filter.bibliotecas);
+                updateClases(filter.clases);
+            });
+        })
+        
+        $sistemas.on('change', function() {
+            console.log('filtrando por sistema');
+            var sistemaId = $sistemas.val(); // obtenemos la sistema seleccionada
+            $.getJSON('/filterBy/sistema/' + sistemaId, function(filter) {
+                console.log(filter);
+                updatePlataformas(filter.plataformas);
+                updateBibliotecas(filter.bibliotecas);
+                updateClases(filter.clases);
+            });
+        })
+        
+        $bibliotecas.on('change', function() {
+            console.log('filtrando por biblioteca');
+            var bibliotecaId = $bibliotecas.val(); // obtenemos la biblioteca seleccionada
+            $.getJSON('/filterBy/biblioteca/' + bibliotecaId, function(filter) {
+                console.log(filter);
+                updatePlataformas(filter.plataformas);
+                updateSistemas(filter.sistemas)
+                updateClases(filter.clases);
+            });
+        })
+        
+        $clases.on('change', function() {
+            console.log('filtrando por clase');
+            var claseId = $clases.val(); // obtenemos la clase seleccionada
+            $.getJSON('/filterBy/clase/' + claseId, function(filter) {
+                console.log(filter);
+                updatePlataformas(filter.plataformas);
+                updateSistemas(filter.sistemas)
+                updateBibliotecas(filter.bibliotecas);
+            });
+        })
+        
+        function updatePlatformas(plataformas) {
+            $.each(filter.plataformas, function(index, plataforma) {
+                $plataformas.html('<option val="'+ plataforma.plataformaId +'">'+  plataforma.plataformaId +'</option>');
+            });
+        }
+        
+        function updateSistemas(sistemas) {
+            $.each(filter.sistemas, function(index, sistema) {
+                $sistemas.html('<option val="'+ sistema.sistemaId +'">'+  sistema.sistemaId +'</option>');
+            });
+        }
+        
+        function updateBibliotecas(bibliotecas) {
+            $.each(filter.bibliotecas, function(index, biblioteca) {
+                $bibliotecas.html('<option val="'+ biblioteca.bibliotecaId +'">'+  biblioteca.bibliotecaId +'</option>');
+            });
+        }
+        
+        function updateClases(clases) {
+            $.each(filter.clases, function(index, clase) {
+                $clases.html('<option val="'+ clase.claseId +'">'+  clase.claseId +'</option>');
+            });
+        }
+        
+    </script>
+    
+    <script>
+    /*
     $('#plataformas').on('change', function() {
         console.log('cambio');
         var plataformaId=$('#plataformas').val();
@@ -92,12 +169,15 @@
 					$("#biblioteca").html("<option>" + biblioteca.bibliotecaId+ "</option>");
 				});
 			});
-		}); 
+		});
+		*/
 	</script>
 	<script>
+	/*
 	$('#bibliotecas').on('change', function() { console.log('cambio4')
 		var biblioteca = $('#bibliotecas').val();
 	$.	getJSON('filter/bibliotecas/' + biblioteca);});
 	</script>		
+	*/
 </body>
 </html>

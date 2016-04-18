@@ -1,19 +1,12 @@
 package com.sysview.docauto.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sysview.docauto.model.Filter;
-import com.sysview.docauto.model.Sistema;
-import com.sysview.docauto.service.BibliotecaService;
-import com.sysview.docauto.service.ClaseService;
-import com.sysview.docauto.service.PlataformaService;
-import com.sysview.docauto.service.SistemaService;
+import com.sysview.docauto.service.FilterService;
 
 @RestController
 public class FilterController {

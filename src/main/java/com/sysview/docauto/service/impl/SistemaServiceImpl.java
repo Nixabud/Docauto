@@ -11,7 +11,7 @@ import com.sysview.docauto.dao.SistemaDAO;
 import com.sysview.docauto.model.Sistema;
 import com.sysview.docauto.service.SistemaService;
 
-@Service("sistemaservice")
+@Service("sistemaService")
 public class SistemaServiceImpl implements SistemaService{
 	
 	private static final Logger log = LoggerFactory.getLogger(SistemaServiceImpl.class);
