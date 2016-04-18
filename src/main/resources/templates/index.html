@@ -145,6 +145,7 @@
             $.ajax({
                 url: '/componentes/',
                 method: 'POST',
+                contentType: 'application/json',
                 data: {
                     plataformaId: $plataformas.val(),
                     sistemaId: $sistemas.val(),
