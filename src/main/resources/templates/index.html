@@ -9,7 +9,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css"/>
 </head>
 <body>
     <div class="jumbotron">
@@ -47,11 +47,11 @@
             </select>
         </div>
     </div>
-    <!-- div class="row">
+    <div class="row">
         <div class="table-responsive">
             <table class="table"></table>
         </div>
-    </div -->
+    </div>
     <button id="buscar" class="btn btn-lg btn-primary" type="button">Buscar componente</button>
     <form th:action="@{/logout}" method="post">
         <button class="btn btn-lg btn-primary" type="submit">Sign Out</button>
@@ -65,7 +65,29 @@
 //        var $componenteTbl = $('#componentes').DataTable({
 //            columnDefs: [
 //                {
+//                    targets: 0
 //                    name: "Plataforma"
+//                    data: "plataformaId"
+//                },
+//                {
+//                    targets: 1
+//                    name: "Sistema"
+//                    data: "sistemaId"
+//                },
+//                {
+//                    targets: 2
+//                    name: "Biblioteca"
+//                    data: "bibliotecaId"
+//                },
+//                {
+//                    targets: 3
+//                    name: "Clase"
+//                    data: "claseId"
+//                },
+//                {
+//                    targets: 4
+//                    name: "Componente"
+//                    data: "componente"
 //                }
 //            ]
 //        });
@@ -120,9 +142,20 @@
         });
         
         $('#buscar').on('click', function() {
-            $.getJSON('/componentes/', function(componentes) {
-                console.log(componentes);
+            $.ajax({
+                url: '/componentes/',
+                method: 'POST',
+                data: {
+                    plataformaId: $plataformas.val(),
+                    sistemaId: $sistemas.val(),
+                    bibliotecaId: $bibliotecas.val(),
+                    claseId: $clases.val()
+                },
+                success: function(componentes) {
+                    console.log(componentes);
+                }
             });
+
         });
         
         function updatePlataformas(plataformas) {
