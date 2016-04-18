@@ -49,19 +49,18 @@ public class FilterServiceImpl implements FilterService {
 		 
         Filter filter = new Filter();
         filter.setPlataformas(plataformaDao.filterByBiblioteca(bibliotecaId)); 
-        filter.setSistemas(bibliotecaDao.filterByBiblioteca(bibliotecaId)); 
+        filter.setSistemas(sistemaDao.filterByBiblioteca(bibliotecaId)); 
         filter.setClases(claseDao.filterByBiblioteca(bibliotecaId));
         return filter;
     }
 	
 	@Override
 	public Filter filterByPlataforma(String plataformaId){
-		
-		Filter filter = new Filter();
-        filter.setPlataformas(plataformaDao.filterByBiblioteca(plataformaId)); 
-        filter.setSistemas(sistemaDao.filterByBiblioteca(plataformaId)); 
-        filter.setClases(claseDao.filterByBiblioteca(plataformaId));
-        return filter;
+	    Filter filter = new Filter();
+	    filter.setBibliotecas(bibliotecaDao.filterByPlataforma(plataformaId)); 
+	    filter.setSistemas(sistemaDao.filterByPlataforma(plataformaId)); 
+	    filter.setClases(claseDao.filterByPlataforma(plataformaId));
+            return filter;
 	}
 
 	@Override
