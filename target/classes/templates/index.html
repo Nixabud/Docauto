@@ -5,8 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="description" content=""/>
-    <meta name="author" content="Daniel Sanchez"/>
-    <title>User Login</title>
+    <title>Consulta Componentes</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
@@ -15,8 +14,90 @@
 <body>
     <div class="jumbotron">
         <div class="container">
-            <h1 th:inline="text">Búsqueda de Componentes</h1>
+            <h1>DocAuto Web</h1>
         </div>
     </div>
+    <div class="row">
+        <div class="col-sm-offset-6"></div>
+        <div class="col-sm-6">
+        	<tr>Componente:</tr>
+            <tr>Plataforma:</tr><select id ="plataformas" name='platform' class="form-control"> 
+                <option value=''>Todos</option>
+                <option th:each="plataforma : ${plataformas}"
+                    th:text="${plataforma.plataformaId}">
+                </option>
+	        </select>
+            <tr>Sistema:</tr><select id = "sistemas" class="form-control">
+                <option value="">Todos</option>
+                <option th:each="sistema : ${sistemas}"
+                    th:text="${sistema.sistemaId}">
+                </option>
+            </select>
+            <tr>Clase:</tr><select id = "clases" class="form-control">
+                <option value="">Todos</option>
+                <option th:each="clase : ${clases}"
+                    th:text="${clase.claseId}">
+                </option>
+            </select>
+            <tr>Biblioteca:</tr><select id = "bibliotecas" class="form-control">
+                <option value="">Todos</option>
+                <option th:each="biblioteca : ${bibliotecas}"
+                    th:text="${biblioteca.bibliotecaId}">
+                </option>
+            </select>
+        </div>
+    </div>
+    <form th:action="@{/logout}" method="post">
+        <button class="btn btn-lg btn-primary" type="submit">Buscar componente</button>
+    </form>
+      <form th:action="@{/logout}" method="post">
+        <button class="btn btn-lg btn-primary" type="submit">Sign Out</button>
+    </form>
+
+   
+         
+    <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+    <script>
+    $('#plataformas').on('change', function() {
+        console.log('cambio');
+        var plataformaId=$('#plataformas').val();
+        console.log(plataformaId);
+        $.getJSON('filter/sistemas/'+plataformaId, function(sistemas) {
+             console.log(sistemas);
+               $.each(sistemas,function(index,sistema){
+                   $("#sistemas").html("<option>" +  sistema.sistemaId+ "</option>");
+               });
+           });
+       });
+	
+	$('#sistemas').on('change', function() { 
+		console.log('cambio2')
+		var sistemaId=$('#sistemas').val();
+		console.log(sistemaId);
+		$.getJSON('filter/clases/'+sistemaId, function(clases){
+			console.log(clases);			
+			$.each(clases,function(index,clase){
+				$("#clases").html("<option>" + clase.claseId+ "</option>");
+			});
+		});
+	});
+
+		$('#clases').on('change', function() { 
+			console.log('cambio2')
+			var claseId=$('#clases').val();
+			console.log(claseId);
+			$.getJSON('filter/bibliotecas/'+claseId, function(clases){
+				console.log(bibliotecas);			
+				$.each(bibliotecas,function(index,biblioteca){
+					$("#biblioteca").html("<option>" + biblioteca.bibliotecaId+ "</option>");
+				});
+			});
+		}); 
+	</script>
+	<script>
+	$('#bibliotecas').on('change', function() { console.log('cambio4')
+		var biblioteca = $('#bibliotecas').val();
+	$.	getJSON('filter/bibliotecas/' + biblioteca);});
+	</script>		
 </body>
 </html>

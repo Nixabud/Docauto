@@ -1,19 +1,18 @@
 package com.sysview.docauto.model;
 
 public class Plataforma {
-
-	public String Id;
-	
-	public Plataforma(String Id){
-		this.Id=Id;
-	}
-
-	public String getId() {
-		return Id;
-	}
-
-	public void setId(String id) {
-		Id = id;
-	}
-	
+    
+    private String plataformaId;
+    
+    public Plataforma(String plataformaId) {
+        this.plataformaId = plataformaId;
+    }
+    
+    public String getPlataformaId() {
+        return plataformaId;
+    }
+    
+    public void setPlataformaId(String plataformaId) {
+        this.plataformaId = plataformaId;
+    }
 }
