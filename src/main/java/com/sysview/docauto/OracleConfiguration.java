@@ -9,10 +9,10 @@ import org.springframework.context.annotation.Configuration;
 
 import oracle.jdbc.pool.OracleDataSource;
 
-//@Configuration
+@Configuration
 public class OracleConfiguration {
 
-//    @Bean
+    @Bean
     DataSource dataSource() throws SQLException {
         OracleDataSource dataSource = new OracleDataSource();
         dataSource.setURL("jdbc:oracle:thin:@//localhost:1521/orcl");
