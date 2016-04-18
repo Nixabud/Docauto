@@ -9,7 +9,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-    
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css">
 </head>
 <body>
     <div class="jumbotron">
@@ -47,15 +47,29 @@
             </select>
         </div>
     </div>
-      <button id="buscar" class="btn btn-lg btn-primary" type="button">Buscar componente</button>
-      <form th:action="@{/logout}" method="post">
+    <!-- div class="row">
+        <div class="table-responsive">
+            <table class="table"></table>
+        </div>
+    </div -->
+    <button id="buscar" class="btn btn-lg btn-primary" type="button">Buscar componente</button>
+    <form th:action="@{/logout}" method="post">
         <button class="btn btn-lg btn-primary" type="submit">Sign Out</button>
     </form>
 
    
          
     <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
     <script>
+//        var $componenteTbl = $('#componentes').DataTable({
+//            columnDefs: [
+//                {
+//                    name: "Plataforma"
+//                }
+//            ]
+//        });
+    
         var $plataformas = $('#plataformas');
         var $sistemas = $('#sistemas');
         var $bibliotecas = $('#bibliotecas');
@@ -189,7 +203,7 @@
 	$('#bibliotecas').on('change', function() { console.log('cambio4')
 		var biblioteca = $('#bibliotecas').val();
 	$.	getJSON('filter/bibliotecas/' + biblioteca);});
-	</script>		
 	*/
+	</script>
 </body>
 </html>
