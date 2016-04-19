@@ -9,19 +9,19 @@ spring:
     content-type: text/html # Content-Type value.
     encoding: UTF-8 # Template encoding.
     mode: HTML5 # Template mode to be applied to templates. See also StandardTemplateModeHandlers.
-#datasource:
-#    platform: oracle
-#    url: "jdbc:oracle:thin:dapresentaciones11/SYSVIEWHELPDESK@localhost:1521:orcl"
-#    username: dapresentaciones12
-#    password: sysview12
-#    driverClassName: "oracle.jdbc.driver.OracleDriver"
-#    initialize: false
+  datasource:
+    platform: oracle
+    url: "jdbc:oracle:thin:dapresentaciones11/SYSVIEWHELPDESK@localhost:1521:orcl"
+    username: dapresentaciones12
+    password: sysview12
+    driverClassName: "oracle.jdbc.driver.OracleDriver"
+    initialize: false
 
 #  datasource:
 #    platform: h2
 #    url: "jdbc:h2:file:${user.home}/SPRING_LOGIN;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=true"
 #    driverClassName: "org.h2.Driver"
-#    initialize: true
+#    initialize: false
     
 # LOGGING
 logging:

@@ -9,7 +9,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-    
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css"/>
 </head>
 <body>
     <div class="jumbotron">
@@ -47,57 +47,160 @@
             </select>
         </div>
     </div>
+    <div class="row">
+        <div class="table-responsive">
+            <table class="table"></table>
+        </div>
+    </div>
+    <button id="buscar" class="btn btn-lg btn-primary" type="button">Buscar componente</button>
     <form th:action="@{/logout}" method="post">
-        <button class="btn btn-lg btn-primary" type="submit">Buscar componente</button>
-    </form>
-      <form th:action="@{/logout}" method="post">
         <button class="btn btn-lg btn-primary" type="submit">Sign Out</button>
     </form>
 
    
          
     <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
     <script>
-    $('#plataformas').on('change', function() {
-        console.log('cambio');
-        var plataformaId=$('#plataformas').val();
-        console.log(plataformaId);
-        $.getJSON('filter/sistemas/'+plataformaId, function(sistemas) {
-             console.log(sistemas);
-               $.each(sistemas,function(index,sistema){
-                   $("#sistemas").html("<option>" +  sistema.sistemaId+ "</option>");
-               });
-           });
-       });
-	
-	$('#sistemas').on('change', function() { 
-		console.log('cambio2')
-		var sistemaId=$('#sistemas').val();
-		console.log(sistemaId);
-		$.getJSON('filter/clases/'+sistemaId, function(clases){
-			console.log(clases);			
-			$.each(clases,function(index,clase){
-				$("#clases").html("<option>" + clase.claseId+ "</option>");
-			});
-		});
-	});
+//        var $componenteTbl = $('#componentes').DataTable({
+//            columnDefs: [
+//                {
+//                    targets: 0
+//                    name: "Plataforma"
+//                    data: "plataformaId"
+//                },
+//                {
+//                    targets: 1
+//                    name: "Sistema"
+//                    data: "sistemaId"
+//                },
+//                {
+//                    targets: 2
+//                    name: "Biblioteca"
+//                    data: "bibliotecaId"
+//                },
+//                {
+//                    targets: 3
+//                    name: "Clase"
+//                    data: "claseId"
+//                },
+//                {
+//                    targets: 4
+//                    name: "Componente"
+//                    data: "componente"
+//                }
+//            ]
+//        });
+    
+        var $plataformas = $('#plataformas');
+        var $sistemas = $('#sistemas');
+        var $bibliotecas = $('#bibliotecas');
+        var $clases = $('#clases');
+        
+        $plataformas.on('change', function() {
+            console.log('filtrando por plataforma');
+            var plataformaId = $plataformas.val(); // obtenemos la plataforma seleccionada
+            $.getJSON('/filterBy/plataforma/' + plataformaId, function(filter) {
+                console.log(filter);
+                updateSistemas(filter.sistemas);
+                updateBibliotecas(filter.bibliotecas);
+                updateClases(filter.clases);
+            });
+        });
+        
+        $sistemas.on('change', function() {
+            console.log('filtrando por sistema');
+            var sistemaId = $sistemas.val(); // obtenemos la sistema seleccionada
+            $.getJSON('/filterBy/sistema/' + sistemaId, function(filter) {
+                console.log(filter);
+                updatePlataformas(filter.plataformas);
+                updateBibliotecas(filter.bibliotecas);
+                updateClases(filter.clases);
+            });
+        });
+        
+        $bibliotecas.on('change', function() {
+            console.log('filtrando por biblioteca');
+            var bibliotecaId = $bibliotecas.val(); // obtenemos la biblioteca seleccionada
+            $.getJSON('/filterBy/biblioteca/' + bibliotecaId, function(filter) {
+                console.log(filter);
+                updatePlataformas(filter.plataformas);
+                updateSistemas(filter.sistemas);
+                updateClases(filter.clases);
+            });
+        });
+        
+        $clases.on('change', function() {
+            console.log('filtrando por clase');
+            var claseId = $clases.val(); // obtenemos la clase seleccionada
+            $.getJSON('/filterBy/clase/' + claseId, function(filter) {
+                console.log(filter);
+                updatePlataformas(filter.plataformas);
+                updateSistemas(filter.sistemas);
+                updateBibliotecas(filter.bibliotecas);
+            });
+        });
+        
+        $('#buscar').on('click', function() {
+            $.ajax({
+                url: '/componentes/',
+                method: 'POST',
+                contentType: 'application/json',
+                data: {
+                    plataformaID: $plataformas.val(),
+                    sistemaID: $sistemas.val(),
+                    bibliotecaId: $bibliotecas.val(),
+                    claseId: $clases.val(),
+                    componenteId: ''
+                },
+                success: function(componentes) {
+                    console.log(componentes);
+//                    $componenteTbl.rows.add(componentes);
+                }
+            });
 
-		$('#clases').on('change', function() { 
-			console.log('cambio2')
-			var claseId=$('#clases').val();
-			console.log(claseId);
-			$.getJSON('filter/bibliotecas/'+claseId, function(clases){
-				console.log(bibliotecas);			
-				$.each(bibliotecas,function(index,biblioteca){
-					$("#biblioteca").html("<option>" + biblioteca.bibliotecaId+ "</option>");
-				});
-			});
-		}); 
-	</script>
-	<script>
-	$('#bibliotecas').on('change', function() { console.log('cambio4')
-		var biblioteca = $('#bibliotecas').val();
-	$.	getJSON('filter/bibliotecas/' + biblioteca);});
-	</script>		
+        });
+        
+        function updatePlataformas(plataformas) {
+            var defaultOption = '<option val="">Todos</option>';
+            var current = $plataformas.val();
+            $plataformas.html(defaultOption);
+            $.each(plataformas, function(index, plataforma) {
+                $plataformas.append('<option val="'+ plataforma.plataformaId +'">'+  plataforma.plataformaId +'</option>');
+            });
+            $plataformas.val(current);
+        }
+        
+        function updateSistemas(sistemas) {
+            var defaultOption = '<option val="">Todos</option>';
+            var current = $sistemas.val();
+            $sistemas.html(defaultOption);
+            $.each(sistemas, function(index, sistema) {
+                $sistemas.append('<option val="'+ sistema.sistemaId +'">'+  sistema.sistemaId +'</option>');
+            });
+            $sistemas.val(current);
+        }
+        
+        function updateBibliotecas(bibliotecas) {
+            var defaultOption = '<option val="">Todos</option>';
+            var current = $bibliotecas.val();
+            $bibliotecas.html(defaultOption);
+            $.each(bibliotecas, function(index, biblioteca) {
+                $bibliotecas.append('<option val="'+ biblioteca.bibliotecaId +'">'+  biblioteca.bibliotecaId +'</option>');
+            });
+            $bibliotecas.val(current);
+        }
+        
+        function updateClases(clases) {
+            var defaultOption = '<option val="">Todos</option>';
+            var current = $clases.val();
+            $clases.html(defaultOption);
+            $.each(clases, function(index, clase) {
+                $clases.append('<option val="'+ clase.claseId +'">'+  clase.claseId +'</option>');
+            });
+            $clases.val(current);
+        }
+        
+    </script>
 </body>
 </html>

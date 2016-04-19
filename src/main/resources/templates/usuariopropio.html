@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <title>Alta de Usuario</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+</head>
+   <h1>Usuarios</h1>
+   
+<body>
+ <form>
+	<table border="1" style="width 20%" align="center">
+	<tr>
+		<td>
+			<label for="inputusuario">Usuario</label>
+		</td>
+		<td>
+			<input type="usuario" class="form-control" id="inputusuario" placeholder="Usuario"/>
+		</td>
+  </tr>
+  <tr>
+	<td>
+		<label for="inputnombre">Nombre</label>
+	</td>
+	<td>
+		<input type="nombre" class="form-control" id="inputnombre" placeholder="Nombre"/>
+	</td>
+  </tr>
+  <tr>
+	<td>
+		<label for="inputapellidopat">Apellido Paterno</label>
+	</td>
+	<td>
+		<input type="apellidopat" class="form-control" id="inputapellidopat" placeholder="Apellido Paterno"/>
+	</td>
+  </tr>
+    <tr>
+		<td>
+			<label for="inputapellidomat">Apellido Materno</label>
+		</td>
+		<td>
+			<input type="apellidomat" class="form-control" id="inputapellidomat" placeholder="Apellido Materno"/>
+		</td>
+  </tr>
+    <tr>
+		<td>
+			<label for="inputpassword">Password</label>
+		</td>
+		<td>
+			<input type="password" class="form-control" id="inputpassword" placeholder="Password"/>
+		</td>
+  </tr>
+    <tr>
+		<td>
+			<label for="inputcorreo">Correo</label>
+		</td>
+		<td>
+			<input type="correo" class="form-control" id="inputcorreo" placeholder="Correo"/>
+		</td>
+  </tr>
+  </table>
+  <button type="submit" class="btn btn-default">Crear</button>
+  <button type="search" class="btn btn-default">Buscar</button>
+  <button type="submit" class="btn btn-lg btn-primary">Salir</button>
+</form>
+</body>
+</html>
