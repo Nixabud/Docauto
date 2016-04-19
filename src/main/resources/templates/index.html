@@ -163,83 +163,44 @@
         
         function updatePlataformas(plataformas) {
             var defaultOption = '<option val="">Todos</option>';
+            var current = $plataformas.val();
             $plataformas.html(defaultOption);
             $.each(plataformas, function(index, plataforma) {
                 $plataformas.append('<option val="'+ plataforma.plataformaId +'">'+  plataforma.plataformaId +'</option>');
             });
+            $plataformas.val(current);
         }
         
         function updateSistemas(sistemas) {
             var defaultOption = '<option val="">Todos</option>';
+            var current = $sistemas.val();
             $sistemas.html(defaultOption);
             $.each(sistemas, function(index, sistema) {
                 $sistemas.append('<option val="'+ sistema.sistemaId +'">'+  sistema.sistemaId +'</option>');
             });
+            $sistemas.val(current);
         }
         
         function updateBibliotecas(bibliotecas) {
             var defaultOption = '<option val="">Todos</option>';
+            var current = $bibliotecas.val();
             $bibliotecas.html(defaultOption);
             $.each(bibliotecas, function(index, biblioteca) {
                 $bibliotecas.append('<option val="'+ biblioteca.bibliotecaId +'">'+  biblioteca.bibliotecaId +'</option>');
             });
+            $bibliotecas.val(current);
         }
         
         function updateClases(clases) {
             var defaultOption = '<option val="">Todos</option>';
+            var current = $clases.val();
             $clases.html(defaultOption);
             $.each(clases, function(index, clase) {
                 $clases.append('<option val="'+ clase.claseId +'">'+  clase.claseId +'</option>');
             });
+            $clases.val(current);
         }
         
     </script>
-    
-    <script>
-    /*
-    $('#plataformas').on('change', function() {
-        console.log('cambio');
-        var plataformaId=$('#plataformas').val();
-        console.log(plataformaId);
-        $.getJSON('filter/sistemas/'+plataformaId, function(sistemas) {
-             console.log(sistemas);
-               $.each(sistemas,function(index,sistema){
-                   $("#sistemas").html("<option>" +  sistema.sistemaId+ "</option>");
-               });
-           });
-       });
-	
-	$('#sistemas').on('change', function() { 
-		console.log('cambio2')
-		var sistemaId=$('#sistemas').val();
-		console.log(sistemaId);
-		$.getJSON('filter/clases/'+sistemaId, function(clases){
-			console.log(clases);			
-			$.each(clases,function(index,clase){
-				$("#clases").html("<option>" + clase.claseId+ "</option>");
-			});
-		});
-	});
-
-		$('#clases').on('change', function() { 
-			console.log('cambio2')
-			var claseId=$('#clases').val();
-			console.log(claseId);
-			$.getJSON('filter/bibliotecas/'+claseId, function(clases){
-				console.log(bibliotecas);			
-				$.each(bibliotecas,function(index,biblioteca){
-					$("#biblioteca").html("<option>" + biblioteca.bibliotecaId+ "</option>");
-				});
-			});
-		});
-		*/
-	</script>
-	<script>
-	/*
-	$('#bibliotecas').on('change', function() { console.log('cambio4')
-		var biblioteca = $('#bibliotecas').val();
-	$.	getJSON('filter/bibliotecas/' + biblioteca);});
-	*/
-	</script>
 </body>
 </html>
