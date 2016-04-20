@@ -27,7 +27,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 	
 	@Override
 	public List<Usuario> getUsuarios() {
-		log.debug("consultando Usuarios...");
+		log.debug("Consultando Usuarios...");
         
         List<Usuario> user= jdbcTemplate.query(
         "select * from USUARIOPROPIO",
@@ -43,14 +43,34 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 
 	@Override
 	public Usuario insertUsuario(String user, String nombre, String appat, String apmat, String pswd, String correo) {
-		// TODO Auto-generated method stub
-		return null;
+		log.debug("Creando Usuario...");
+        
+        List<Usuario> inuser= jdbcTemplate.query(
+        "insert into USUARIOPROPIO values(?,?,?,?,?,?)",
+        new RowMapper<Usuario>() {
+            public Usuario mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Usuario user = new Usuario(rs.getString(1));
+                return user;
+            }
+        });
+        log.debug("usuarios: {}", user.toString());
+        return (Usuario) inuser;
 	}
 
 	@Override
 	public Usuario deleteUsuario(Usuario user) {
-		// TODO Auto-generated method stub
-		return null;
+		log.debug("Elimnando Usuarios...");
+        
+        List<Usuario> deluser= jdbcTemplate.query(
+        "delete from USUARIOPROPIO where usuariopropio=?",
+        new RowMapper<Usuario>() {
+            public Usuario mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Usuario user = new Usuario(rs.getString(1));
+                return user;
+            }
+        });
+        log.debug("usuarios: {}", user.toString());
+        return user;
 	}
 	
 }

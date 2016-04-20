@@ -14,7 +14,8 @@
    
 <body>
  <form>
-	<table border="1" style="width 20%" align="center">
+	<table border="1" style="width 20%" align="center" id="Datos">
+	<caption>Alta de Usuario</caption>
 	<tr>
 		<td>
 			<label for="inputusuario">Usuario</label>
@@ -64,9 +65,39 @@
 		</td>
   </tr>
   </table>
-  <button type="submit" class="btn btn-default">Crear</button>
-  <button type="search" class="btn btn-default">Buscar</button>
-  <button type="submit" class="btn btn-lg btn-primary">Salir</button>
+  <!-- <input type="button" value="Crear usuario" id="nuevo" name="nuevo" onclick= "document.form1.action" = 'nuevo.jsp';  document.form1.submit()" /> -->
+  <button type="button" value="Crea usuario" id="nuevo">Crear</button>
+  <button type="submit" value="Logout">Salir</button>
 </form>
+
+<form1>
+<table border="1" style="width 20%" align="center">
+	<caption>Búsqueda de Usuario</caption>
+	<tr>
+		<th>Usuario</th>
+		
+		<th>Nombre</th>
+		
+		<th>Apellido Paterno</th>
+		
+		<th>Apellido Materno</th>
+		
+		<th>Password</th>
+		
+		<th>Correo</th>
+		
+	</tr>
+		<td><form input="${usuario.usuario}"></form></td>
+		<td><form input="${usuario.nombre}"></form></td>
+		<td><form input="${usuario.apellidopat}"></form></td>
+		<td><form input="${usuario.apellidomat}"></form></td>
+		<td><form input="${usuario.password}"></form></td>
+		<td><form input="${usuario.correo}"></form></td>
+	<tr>
+	</tr>
+</table>
+<button type="search" value="buscar">Buscar</button>
+</form1>
+
 </body>
 </html>

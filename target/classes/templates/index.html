@@ -21,7 +21,7 @@
         <div class="col-sm-offset-6"></div>
         <div class="col-sm-6">
         	<tr>Componente:</tr>
-            <tr>Plataforma:</tr><select id ="plataformas" name='platform' class="form-control"> 
+        	<tr>Plataforma:</tr><select id ="plataformas" name='platform' class="form-control"> 
                 <option value=''>Todos</option>
                 <option th:each="plataforma : ${plataformas}"
                     th:text="${plataforma.plataformaId}">
