@@ -17,7 +17,11 @@ public class ComponenteController {
 	
 	@Autowired ComponenteService componenteService;
 	
-	@RequestMapping(value="/", method=RequestMethod.POST)
+	@RequestMapping(value = "/",
+		method = RequestMethod.POST,
+		headers = "Accept=" + MediaType.APPLICATION_JSON_VALUE,
+		consumes = MediaType.APPLICATION_JSON_VALUE,
+		produces = MediaType.APPLICATION_JSON_VALUE)
 	 public List<Componente> componentesel(@RequestBody Componente componente){
 		return componenteService.filterByComponente(componente);		
 	}
