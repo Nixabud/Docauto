@@ -29,7 +29,7 @@ public class ComponenteDaoImpl implements ComponenteDAO {
 	      log.debug("consultando Componentes...");
 	      
 	      String sql = "SELECT PLATAFORMAID, SISTEMAID, BIBLIOTECAID, CLASEID, COMPONENTE FROM CONSULTA";
-	      sql += " WHERE COMPONENTE != NULL";
+	      sql += " WHERE COMPONENTE != 'NULL'";
 	      
 	      List<String> params = new ArrayList<String>();
 	      
