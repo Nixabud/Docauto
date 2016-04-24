@@ -1,5 +1,6 @@
 package com.sysview.docauto.dao.impl;
 
+import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import com.sysview.docauto.model.Componente;
 @Component ("componenteDao")
 public class ComponenteDaoImpl implements ComponenteDAO {
 	  
-	  private static final Logger log = LoggerFactory.getLogger(SistemaDAOImpl.class);
+	  private static final Logger log = LoggerFactory.getLogger(ComponenteDaoImpl.class);
 	  
 	  @Autowired
 	  private JdbcTemplate jdbcTemplate;
@@ -28,7 +29,20 @@ public class ComponenteDaoImpl implements ComponenteDAO {
 	  public List<Componente> findcomponente(Componente componente){
 	      log.debug("consultando Componentes...");
 	      
-	      String sql = "SELECT PLATAFORMAID, SISTEMAID, BIBLIOTECAID, CLASEID, COMPONENTE FROM CONSULTA";
+	      log.debug("plataforma: {}", componente.getPlataformaID());
+	      log.debug("sistema: {}", componente.getSistemaID());
+	      log.debug("biblioteca: {}", componente.getBibliotecaId());
+	      log.debug("clase: {}", componente.getClaseId());
+	      
+	      String sql = "SELECT PLATAFORMAID,";
+	      sql += " SISTEMAID,";
+	      sql += " BIBLIOTECAID,";
+	      sql += " CLASEID,";
+	      sql += " COMPONENTE";
+          sql += " PRODUCTOID,";
+          sql += " FORMATOID,";
+          sql += " DOCTO";
+	      sql += " FROM CONSULTA";
 	      sql += " WHERE COMPONENTE != 'NULL'";
 	      
 	      List<String> params = new ArrayList<String>();
@@ -59,11 +73,15 @@ public class ComponenteDaoImpl implements ComponenteDAO {
 	          new RowMapper<Componente>() {
 	              public Componente mapRow(ResultSet rs, int rowNum) throws SQLException {
 	                  Componente componente = new Componente();
+	                  Blob blob = rs.getBlob("DOCTO");
+                      componente.setDocto(blob.getBytes(1, (int) blob.length()));
                       componente.setPlataformaID(rs.getString("PLATAFORMAID"));
                       componente.setSistemaID(rs.getString("SISTEMAID"));
                       componente.setClaseId(rs.getString("CLASEID"));
                       componente.setBibliotecaId(rs.getString("BIBLIOTECAID"));
-                      componente.setComponenteId(rs.getString("COMPONENTE"));
+                      componente.setComponente(rs.getString("COMPONENTE"));
+                      componente.setProductoId(rs.getString("PRODUCTOID"));
+                      componente.setFormatoId(rs.getString("FORMATOID"));
                       return componente;
                   }
               });

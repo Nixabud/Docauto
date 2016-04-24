@@ -6,7 +6,11 @@ public class Componente {
 	private String sistemaID;
 	private String claseId;
 	private String bibliotecaId;
-	private String componenteId;
+	private String componente;
+	private String productoId;
+	private String formatoId;
+	private byte[] docto;
+    private String format;
 	
 	public String getPlataformaID() {
 		return plataformaID;
@@ -32,12 +36,38 @@ public class Componente {
 	public void setBibliotecaId(String bibliotecaId) {
 		this.bibliotecaId = bibliotecaId;
 	}
-	public String getComponenteId() {
-		return componenteId;
+	public String getComponente() {
+		return componente;
 	}
-	public void setComponenteId(String componenteId) {
-		this.componenteId = componenteId;
+	public void setComponente(String componente) {
+		this.componente = componente;
 	}
 	
-
+	public String getProductoId() {
+		return productoId;
+	}
+	public void setProductoId(String productoId) {
+		this.productoId = productoId;
+	}
+	
+	public String getFormatoId() {
+		return formatoId;
+	}
+	public void setFormatoId(String formatoId) {
+		this.formatoId = formatoId;
+	}
+	
+	public String getFormat() {
+		return format;
+	}
+	public void setFormat(String format) {
+		this.format = format;
+	}
+	
+	public byte[] getDocto() {
+		return docto;
+	}
+	public void setDocto(byte[] docto) {
+		this.docto = docto;
+	}
 }

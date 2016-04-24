@@ -15,6 +15,7 @@ public class ComponenteServiceImpl implements ComponenteService{
 
 	@Autowired 
 	private ComponenteDAO componenteDao;
+	
 	@Override
 	public List<Componente> filterByComponente(Componente componente) {
 	    return componenteDao.findcomponente(componente);

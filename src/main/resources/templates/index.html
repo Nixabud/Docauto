@@ -18,8 +18,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-offset-6"></div>
-        <div class="col-sm-6">
+        <div class="col-sm-6 col-sm-offset-3">
         	<tr>Componente:</tr>
         	<tr>Plataforma:</tr><select id ="plataformas" name='platform' class="form-control"> 
                 <option value=''>Todos</option>
@@ -48,8 +47,10 @@
         </div>
     </div>
     <div class="row">
-        <div class="table-responsive">
-            <table class="table"></table>
+        <div class="col-sm-10 col-sm-offset-1">
+            <div class="table-responsive">
+                <table id="componentes" class="table"></table>
+            </div>
         </div>
     </div>
     <button id="buscar" class="btn btn-lg btn-primary" type="button">Buscar componente</button>
@@ -62,35 +63,35 @@
     <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
     <script>
-//        var $componenteTbl = $('#componentes').DataTable({
-//            columnDefs: [
-//                {
-//                    targets: 0
-//                    name: "Plataforma"
-//                    data: "plataformaId"
-//                },
-//                {
-//                    targets: 1
-//                    name: "Sistema"
-//                    data: "sistemaId"
-//                },
-//                {
-//                    targets: 2
-//                    name: "Biblioteca"
-//                    data: "bibliotecaId"
-//                },
-//                {
-//                    targets: 3
-//                    name: "Clase"
-//                    data: "claseId"
-//                },
-//                {
-//                    targets: 4
-//                    name: "Componente"
-//                    data: "componente"
-//                }
-//            ]
-//        });
+        var $componenteTbl = $('#componentes').DataTable({
+            columnDefs: [
+                {
+                    targets: 0,
+                    name: "Plataforma",
+                    data: "plataformaID"
+                },
+                {
+                    targets: 1,
+                    name: "Sistema",
+                    data: "sistemaID"
+                },
+                {
+                    targets: 2,
+                    name: "Biblioteca",
+                    data: "bibliotecaId"
+                },
+                {
+                    targets: 3,
+                    name: "Clase",
+                    data: "claseId"
+                },
+                {
+                    targets: 4,
+                    name: "Componente",
+                    data: "componente"
+                }
+            ]
+        });
     
         var $plataformas = $('#plataformas');
         var $sistemas = $('#sistemas');
@@ -142,17 +143,18 @@
         });
         
         $('#buscar').on('click', function() {
+            var search = {
+                "plataformaID": $plataformas.val(),
+                "sistemaID": $sistemas.val(),
+                "bibliotecaId": $bibliotecas.val(),
+                "claseId": $clases.val(),
+                "componente": $("#componente").val()
+            };
             $.ajax({
                 url: '/componentes/',
                 method: 'POST',
                 contentType: 'application/json',
-                data: {
-                    plataformaID: $plataformas.val(),
-                    sistemaID: $sistemas.val(),
-                    bibliotecaId: $bibliotecas.val(),
-                    claseId: $clases.val(),
-                    componenteId: ''
-                },
+                data: JSON.stringify(search),
                 success: function(componentes) {
                     console.log(componentes);
 //                    $componenteTbl.rows.add(componentes);
