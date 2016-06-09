@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
@@ -9,95 +9,168 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>   
+	
+	
+  
 </head>
    <h1>Usuarios</h1>
    
 <body>
- <form>
-	<table border="1" style="width 20%" align="center" id="Datos">
+ <form id="datosnuevo" action="/up/insertUsuario" method="POST">
+	<table border="1" style="width 20%" id="Data">
 	<caption>Alta de Usuario</caption>
 	<tr>
 		<td>
-			<label for="inputusuario">Usuario</label>
+			<label for="usuario">Usuario</label>
 		</td>
 		<td>
-			<input type="usuario" class="form-control" id="inputusuario" placeholder="Usuario"/>
+			<input type="text" class="form-control" name="usuario" placeholder="Usuario"/>
 		</td>
   </tr>
   <tr>
 	<td>
-		<label for="inputnombre">Nombre</label>
+		<label for="nombre">Nombre</label>
 	</td>
 	<td>
-		<input type="nombre" class="form-control" id="inputnombre" placeholder="Nombre"/>
+		<input type="text" class="form-control" name="nombreusr" placeholder="Nombre"/>
 	</td>
   </tr>
   <tr>
 	<td>
-		<label for="inputapellidopat">Apellido Paterno</label>
+		<label for="apellidopat">Apellido Paterno</label>
 	</td>
 	<td>
-		<input type="apellidopat" class="form-control" id="inputapellidopat" placeholder="Apellido Paterno"/>
+		<input type="text" class="form-control" name="apellidopat" placeholder="Apellido Paterno"/>
 	</td>
   </tr>
     <tr>
 		<td>
-			<label for="inputapellidomat">Apellido Materno</label>
+			<label for="apellidomat">Apellido Materno</label>
 		</td>
 		<td>
-			<input type="apellidomat" class="form-control" id="inputapellidomat" placeholder="Apellido Materno"/>
-		</td>
-  </tr>
-    <tr>
-		<td>
-			<label for="inputpassword">Password</label>
-		</td>
-		<td>
-			<input type="password" class="form-control" id="inputpassword" placeholder="Password"/>
+			<input type="text" class="form-control" name="apellidomat" placeholder="Apellido Materno"/>
 		</td>
   </tr>
     <tr>
 		<td>
-			<label for="inputcorreo">Correo</label>
+			<label for="password">Password</label>
 		</td>
 		<td>
-			<input type="correo" class="form-control" id="inputcorreo" placeholder="Correo"/>
+			<input type="text" class="form-control" name="password" placeholder="Password"/>
+		</td>
+  </tr>
+    <tr>
+		<td>
+			<label for="correo">Correo</label>
+		</td>
+		<td>
+			<input type="text" class="form-control" name="correo" placeholder="Correo"/>
 		</td>
   </tr>
   </table>
-  <!-- <input type="button" value="Crear usuario" id="nuevo" name="nuevo" onclick= "document.form1.action" = 'nuevo.jsp';  document.form1.submit()" /> -->
-  <button type="button" value="Crea usuario" id="nuevo">Crear</button>
-  <button type="submit" value="Logout">Salir</button>
+  <input value="Crear Usuario" id="Save" type="submit"></input>
+</form>   
+
+
+<form th:action="@{/up/getusr}" th:object="${usuarios}" method="GET">
+    <span class="subtitle">Usuarios Registrados</span>
+    <div class="listBlock">
+	<button id="search" name="search">Buscar Usuarios Registrados</button>		
+        		<!-- tABLA que arroja usuarios registrados -->
+   
+      <div class="results-block" id="results-Block">
+        <table border="1" style="width 20%" id="tablares">
+            <thead>
+                <tr>
+                    <th>Usuario</th>	
+					<th>Nombre</th>
+					<th>Apellido Paterno</th>
+					<th>Apellido Materno</th>
+					<th>Password</th>
+					<th>Correo</th>	
+                </tr>
+            </thead>
+            <tbody>
+				<tr th:each="userpropio : ${UsuarioPropio}">
+					<td th:text="${userpropio.usuario}">Usuario</td>
+					<td th:text="${userpropio.nombreusr}">Nombre</td>
+                    <td th:text="${userpropio.apellidopat}">Apellido Pateno</td>
+                    <td th:text="${userpropio.apellidomat}">Apellido Materno</td>
+                    <td th:text="${userpropio.password}">Password</td>
+                    <td th:text="${userpropio.correo}">Correo</td>
+                </tr>
+            </tbody>
+        </table>
+</div>
+    </div>
 </form>
+<form method="GET" action="/up/deleteUsuario"> 
+	<input type="text" name="usuario" class="form-control" placeholder="Eliminar"  maxlength="20" size="12"/>
+	<button name="Eliminar Usuario" id="Delete">Eliminar Usuario</button>
+</form>  
+ 
+      
+<form id="datosnuevo" action="/up/updateUsuario" method="POST">
+	<table border="1" style="width 20%" id="Data">
+	<caption>Edicion de Usuario</caption>
+	<!-- 
+   <tr>
+		<td>
+			<label for="usuario">Usuario</label>
+		</td>
+		<td>
+			<input type="text" class="form-control" name="usuario" placeholder="Usuario"/>
+		</td>
+  </tr>-->
+  <tr>
+	<td>
+		<label for="nombre">Nombre</label>
+	</td>
+	<td>
+		<input type="text" class="form-control" name="nombreusr" placeholder="Nombre"/>
+	</td>
+  </tr>
+  <tr>
+	<td>
+		<label for="apellidopat">Apellido Paterno</label>
+	</td>
+	<td>
+		<input type="text" class="form-control" name="apellidopat" placeholder="Apellido Paterno"/>
+	</td>
+  </tr>
+    <tr>
+		<td>
+			<label for="apellidomat">Apellido Materno</label>
+		</td>
+		<td>
+			<input type="text" class="form-control" name="apellidomat" placeholder="Apellido Materno"/>
+		</td>
+  </tr>
+    <tr>
+		<td>
+			<label for="password">Password</label>
+		</td>
+		<td>
+			<input type="text" class="form-control" name="password" placeholder="Password"/>
+		</td>
+  </tr>
+    <tr>
+		<td>
+			<label for="correo">Correo</label>
+		</td>
+		<td>
+			<input type="text" class="form-control" name="correo" placeholder="Correo"/>
+		</td>
+  </tr>
+  </table>
+  <input type="text" name="usuario" class="form-control" placeholder="Editar Usuario"  maxlength="20" size="12"/>
+  <button name="Editar Usuario" id="Update">Editar Usuario</button>
+</form> 
 
-<form1>
-<table border="1" style="width 20%" align="center">
-	<caption>Búsqueda de Usuario</caption>
-	<tr>
-		<th>Usuario</th>
-		
-		<th>Nombre</th>
-		
-		<th>Apellido Paterno</th>
-		
-		<th>Apellido Materno</th>
-		
-		<th>Password</th>
-		
-		<th>Correo</th>
-		
-	</tr>
-		<td><form input="${usuario.usuario}"></form></td>
-		<td><form input="${usuario.nombre}"></form></td>
-		<td><form input="${usuario.apellidopat}"></form></td>
-		<td><form input="${usuario.apellidomat}"></form></td>
-		<td><form input="${usuario.password}"></form></td>
-		<td><form input="${usuario.correo}"></form></td>
-	<tr>
-	</tr>
-</table>
-<button type="search" value="buscar">Buscar</button>
-</form1>
-
+<form th:action="@{/logout}" method="post">
+  	<button class="btn btn-lg btn-primary" type="submit">Salir</button>
+ </form> 
 </body>
 </html>

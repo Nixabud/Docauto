@@ -21,4 +21,9 @@ public class ComponenteServiceImpl implements ComponenteService{
 	    return componenteDao.findcomponente(componente);
 	}
 
+	@Override
+	public List<Componente> cmpfiltro() {
+		return componenteDao.resultcomp();
+	}
+
 }

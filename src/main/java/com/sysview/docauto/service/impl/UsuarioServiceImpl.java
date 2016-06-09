@@ -16,39 +16,36 @@ public class UsuarioServiceImpl implements UsuarioService{
 	private UsuarioDAO usuarioDao;
 
 	@Override
-	public List<Usuario> getUsuariouser() {
-
-		return usuarioDao.getUsuarios();
-	}
-
-	@Override
-	public List<Usuario> getUsuarionombre() {
+	public List<Usuario> getUsuario() {
 		// TODO Auto-generated method stub
-		return null;
+		return usuarioDao.getUsuario();
 	}
-
+		
 	@Override
-	public List<Usuario> getUsuarioappat() {
-		// TODO Auto-generated method stub
-		return null;
+	public void insertUsuario(Usuario user) {
+		usuarioDao.insertUsuario(user);
+		
 	}
-
+	
 	@Override
-	public List<Usuario> getUsuarioapmat() {
+	public void updateUsuario(Usuario user) {
 		// TODO Auto-generated method stub
-		return null;
+		//Usuario updateuser = new Usuario();
+		//updateuser.getUsuario();
+		usuarioDao.updateUsuario(user);
+		
 	}
-
 	@Override
-	public List<Usuario> getUsuariopassword() {
-		// TODO Auto-generated method stub
-		return null;
+	public void deleteUsuario(Usuario user) {
+		usuarioDao.deleteUsuario(user);
+		
 	}
-
+	
+	/*
 	@Override
-	public List<Usuario> getUsuariocorreo() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public Usuario getusuario(String user){
+		return usuarioDao.getuser(user);
+	}*/
+	
 	
 }

@@ -16,11 +16,12 @@ import org.springframework.util.StringUtils;
 
 import com.sysview.docauto.dao.ComponenteDAO;
 import com.sysview.docauto.model.Componente;
+import com.sysview.docauto.model.Usuario;
 
 @Component ("componenteDao")
-public class ComponenteDaoImpl implements ComponenteDAO {
+public class ComponenteDAOImpl implements ComponenteDAO {
 	  
-	  private static final Logger log = LoggerFactory.getLogger(ComponenteDaoImpl.class);
+	  private static final Logger log = LoggerFactory.getLogger(ComponenteDAOImpl.class);
 	  
 	  @Autowired
 	  private JdbcTemplate jdbcTemplate;
@@ -38,11 +39,12 @@ public class ComponenteDaoImpl implements ComponenteDAO {
 	      sql += " SISTEMAID,";
 	      sql += " BIBLIOTECAID,";
 	      sql += " CLASEID,";
-	      sql += " COMPONENTE";
+	      sql += " COMPONENTE,";
           sql += " PRODUCTOID,";
           sql += " FORMATOID,";
-          sql += " DOCTO";
-	      sql += " FROM CONSULTA";
+          sql += " DOCTO,";
+          sql += " FORMAT";
+	      sql += " FROM CONSULTADETALLE";
 	      sql += " WHERE COMPONENTE != 'NULL'";
 	      
 	      List<String> params = new ArrayList<String>();
@@ -87,5 +89,24 @@ public class ComponenteDaoImpl implements ComponenteDAO {
               });
           log.debug("componente: {}", componentes.toString());
           return componentes;
-    } 
+    }
+
+	@Override
+	public List<Componente> resultcomp() {
+		String sql = "select distinct Plataformaid,Sistemaid,Claseid,Bibliotecaid,Componente from CONSULTADETALLE where "
+				+ "PLATAFORMAID= ? AND SISTEMAID= ? AND CLASEID=? AND BIBLIOTECAID=?";
+		List <Componente> filcomp= jdbcTemplate.query(sql, new RowMapper<Componente>() {
+            public Componente mapRow(ResultSet rs, int rowNum) throws SQLException {
+            	Componente compo = new Componente();
+            	compo.setPlataformaID(rs.getString("PLATAFORMAID"));
+            	compo.setSistemaID(rs.getString("SISTEMAID"));
+            	compo.setClaseId(rs.getString("CLASEID"));
+            	compo.setBibliotecaId(rs.getString("BIBLIOTECAID"));
+            	compo.setComponente(rs.getString("componente"));
+            	return compo; 
+            }
+		});
+		return filcomp;
+	}
 }
+

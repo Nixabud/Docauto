@@ -17,80 +17,110 @@
             <h1>DocAuto Web</h1>
         </div>
     </div>
+<form id="consulta" action="/comcon">
     <div class="row">
-        <div class="col-sm-offset-6"></div>
-        <div class="col-sm-6">
-        	<tr>Componente:</tr>
-        	<tr>Plataforma:</tr><select id ="plataformas" name='platform' class="form-control"> 
+        <div class="col-sm-6 col-sm-offset-3">
+        	<!--<tr>Componente:</tr>  -->
+        	<tr>Plataforma:</tr><select id ="plataformas" name="platform" class="form-control"> 
                 <option value=''>Todos</option>
                 <option th:each="plataforma : ${plataformas}"
                     th:text="${plataforma.plataformaId}">
                 </option>
 	        </select>
-            <tr>Sistema:</tr><select id = "sistemas" class="form-control">
+            <tr>Sistema:</tr><select id = "sistemas" name="system" class="form-control">
                 <option value="">Todos</option>
                 <option th:each="sistema : ${sistemas}"
                     th:text="${sistema.sistemaId}">
                 </option>
             </select>
-            <tr>Clase:</tr><select id = "clases" class="form-control">
+            <tr>Clase:</tr><select id = "clases" name="class" class="form-control">
                 <option value="">Todos</option>
                 <option th:each="clase : ${clases}"
                     th:text="${clase.claseId}">
                 </option>
             </select>
-            <tr>Biblioteca:</tr><select id = "bibliotecas" class="form-control">
+            <tr>Biblioteca:</tr><select id = "bibliotecas" name="lib" class="form-control">
                 <option value="">Todos</option>
                 <option th:each="biblioteca : ${bibliotecas}"
                     th:text="${biblioteca.bibliotecaId}">
                 </option>
             </select>
         </div>
+        <button id="search" name="search" action="/">Buscar Componentes</button>        
+        <span class="subtitle">Componentes</span>
+<div class="results-block" id="results-Block">
+
+
+ 		<!-- Tabla que muestra el filtrado -->
+ 	
+ 	<div class="results-block" id="results-Block">
+        <table border="1" style="width 20%" id="tablares">
+            <thead>
+            <tr>
+					<th>Plataforma</th>
+					<th>Sistema</th>
+                    <th>Biblioteca</th>
+                    <th>Clase</th>
+                    <th>Componente</th>
+            </tr>                  
+            </thead>
+    <tbody>
+		<tr th:each="componente : ${componentes}">
+	       	<td th:text="${platform}">Plataforma</td>
+			<td th:text="${sistemas.sistemaID}">Sistema</td>
+			<td th:text="${bibliotecas.bibliotecaId}">Biblioteca</td>
+			<td th:text="${clases.claseId}">Clase</td>
+			<td th:text="${componentes.componente}">Componente</td> 
+	    </tr> 
+ 	</tbody>
+     </table>
+     </div>
+</div>
     </div>
-    <div class="row">
-        <div class="table-responsive">
-            <table class="table"></table>
-        </div>
-    </div>
-    <button id="buscar" class="btn btn-lg btn-primary" type="button">Buscar componente</button>
-    <form th:action="@{/logout}" method="post">
-        <button class="btn btn-lg btn-primary" type="submit">Sign Out</button>
-    </form>
+</form>
+
+
+		<!-- Salida de la Aplicacion -->
+
+
+<form th:action="@{/logout}" method="post">
+    <button class="btn btn-lg btn-primary" type="submit">Sign Out</button>
+</form>
 
    
          
     <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
     <script>
-//        var $componenteTbl = $('#componentes').DataTable({
-//            columnDefs: [
-//                {
-//                    targets: 0
-//                    name: "Plataforma"
-//                    data: "plataformaId"
-//                },
-//                {
-//                    targets: 1
-//                    name: "Sistema"
-//                    data: "sistemaId"
-//                },
-//                {
-//                    targets: 2
-//                    name: "Biblioteca"
-//                    data: "bibliotecaId"
-//                },
-//                {
-//                    targets: 3
-//                    name: "Clase"
-//                    data: "claseId"
-//                },
-//                {
-//                    targets: 4
-//                    name: "Componente"
-//                    data: "componente"
-//                }
-//            ]
-//        });
+        var $componenteTbl = $('#componentes').DataTable({
+            columnDefs: [
+                {
+                    targets: 0,
+                    name: "Plataforma",
+                    data: "plataformaID"
+                },
+                {
+                    targets: 1,
+                    name: "Sistema",
+                    data: "sistemaID"
+                },
+                {
+                    targets: 2,
+                    name: "Biblioteca",
+                    data: "bibliotecaId"
+                },
+                {
+                    targets: 3,
+                    name: "Clase",
+                    data: "claseId"
+                },
+                {
+                    targets: 4,
+                    name: "Componente",
+                    data: "componente"
+                }
+            ]
+        });
     
         var $plataformas = $('#plataformas');
         var $sistemas = $('#sistemas');
@@ -110,7 +140,7 @@
         
         $sistemas.on('change', function() {
             console.log('filtrando por sistema');
-            var sistemaId = $sistemas.val(); // obtenemos la sistema seleccionada
+            var sistemaId = $sistemas.val(); // obtenemos el sistema seleccionado
             $.getJSON('/filterBy/sistema/' + sistemaId, function(filter) {
                 console.log(filter);
                 updatePlataformas(filter.plataformas);
@@ -142,17 +172,18 @@
         });
         
         $('#buscar').on('click', function() {
+            var search = {
+                "plataformaID": $plataformas.val(),
+                "sistemaID": $sistemas.val(),
+                "bibliotecaId": $bibliotecas.val(),
+                "claseId": $clases.val(),
+                "componente": $("#componente").val()
+            };
             $.ajax({
                 url: '/componentes/',
                 method: 'POST',
                 contentType: 'application/json',
-                data: {
-                    plataformaID: $plataformas.val(),
-                    sistemaID: $sistemas.val(),
-                    bibliotecaId: $bibliotecas.val(),
-                    claseId: $clases.val(),
-                    componenteId: ''
-                },
+                data: JSON.stringify(search),
                 success: function(componentes) {
                     console.log(componentes);
 //                    $componenteTbl.rows.add(componentes);
@@ -202,5 +233,7 @@
         }
         
     </script>
+
+
 </body>
 </html>

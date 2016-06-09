@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <title>Alta de Usuario</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>   
+</head>
+<form id="Consulta" action="/" method="POST">
+	<table border="1" style="width 20%" id="Data">
+	<caption>Componentes</caption>
+	
+	<tr th:each="componentes : ${Componentes}">
+					<th>Plataforma</th>
+					<th>Sistema</th>
+                    <td>Biblioteca</th>
+                    <th>Clase</th>
+                    <th>Componente</th>                  
+                </tr>
+    <tr>
+    	<td th:text="${componentes.Plataforma}"></td>
+		<td th:text="${componentes.Sistema}"></td>
+		<td th:text="${componentes.Bilbioteca}"></td>
+		<td th:text="${componentes.Clase}"></td>
+		<td th:text="${componentes.Componente}"></td>
+    </tr>
+    
+  </table>
+</form>  
+
+
+<body>
+
+</body>
+</html>

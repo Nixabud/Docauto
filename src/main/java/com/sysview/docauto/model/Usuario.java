@@ -9,7 +9,7 @@ public class Usuario {
 	private String password;
 	private String correo;
 	
-	public Usuario(String string) {
+	public Usuario() {
 		// TODO Auto-generated constructor stub
 	}
 	public String getUsuario() {

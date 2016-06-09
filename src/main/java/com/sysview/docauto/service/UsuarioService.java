@@ -6,11 +6,9 @@ import com.sysview.docauto.model.Usuario;
 
 public interface UsuarioService {
 	
-	List<Usuario> getUsuariouser();
-	List<Usuario> getUsuarionombre();
-	List<Usuario> getUsuarioappat();
-	List<Usuario> getUsuarioapmat();
-	List<Usuario> getUsuariopassword();
-	List<Usuario> getUsuariocorreo();
-
+	void insertUsuario(Usuario user);
+	void updateUsuario(Usuario user);
+	void deleteUsuario(Usuario user);
+	List<Usuario> getUsuario(); 
+	//Usuario getusuario(String usuario);
 }

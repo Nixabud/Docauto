@@ -9,5 +9,7 @@ import com.sysview.docauto.model.Filter;
 public interface ComponenteService {
 		
 		List<Componente> filterByComponente(Componente componente);
+
+		List<Componente> cmpfiltro();
 		
 	}
