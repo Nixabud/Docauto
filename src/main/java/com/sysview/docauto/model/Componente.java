@@ -2,8 +2,8 @@ package com.sysview.docauto.model;
 
 public class Componente {
 	
-	private String plataformaID;
-	private String sistemaID;
+	private String plataformaId;
+	private String sistemaId;
 	private String claseId;
 	private String bibliotecaId;
 	private String componente;
@@ -12,17 +12,17 @@ public class Componente {
 	private byte[] docto;
     private String format;
 	
-	public String getPlataformaID() {
-		return plataformaID;
+	public String getPlataformaId() {
+		return plataformaId;
 	}
-	public void setPlataformaID(String plataformaID) {
-		this.plataformaID = plataformaID;
+	public void setPlataformaId(String plataformaId) {
+		this.plataformaId = plataformaId;
 	}
-	public String getSistemaID() {
-		return sistemaID;
+	public String getSistemaId() {
+		return sistemaId;
 	}
-	public void setSistemaID(String sistemaID) {
-		this.sistemaID = sistemaID;
+	public void setSistemaId(String sistemaId) {
+		this.sistemaId = sistemaId;
 	}
 	public String getClaseId() {
 		return claseId;

@@ -16,12 +16,11 @@ import org.springframework.util.StringUtils;
 
 import com.sysview.docauto.dao.ComponenteDAO;
 import com.sysview.docauto.model.Componente;
-import com.sysview.docauto.model.Usuario;
 
 @Component ("componenteDao")
-public class ComponenteDAOImpl implements ComponenteDAO {
+public class ComponenteDaoImpl implements ComponenteDAO {
 	  
-	  private static final Logger log = LoggerFactory.getLogger(ComponenteDAOImpl.class);
+	  private static final Logger log = LoggerFactory.getLogger(ComponenteDaoImpl.class);
 	  
 	  @Autowired
 	  private JdbcTemplate jdbcTemplate;
@@ -30,83 +29,98 @@ public class ComponenteDAOImpl implements ComponenteDAO {
 	  public List<Componente> findcomponente(Componente componente){
 	      log.debug("consultando Componentes...");
 	      
-	      log.debug("plataforma: {}", componente.getPlataformaID());
-	      log.debug("sistema: {}", componente.getSistemaID());
+	      log.debug("plataforma: {}", componente.getPlataformaId());
+	      log.debug("sistema: {}", componente.getSistemaId());
 	      log.debug("biblioteca: {}", componente.getBibliotecaId());
 	      log.debug("clase: {}", componente.getClaseId());
 	      
-	      String sql = "SELECT PLATAFORMAID,";
-	      sql += " SISTEMAID,";
-	      sql += " BIBLIOTECAID,";
-	      sql += " CLASEID,";
-	      sql += " COMPONENTE,";
-          sql += " PRODUCTOID,";
-          sql += " FORMATOID,";
-          sql += " DOCTO,";
-          sql += " FORMAT";
-	      sql += " FROM CONSULTADETALLE";
-	      sql += " WHERE COMPONENTE != 'NULL'";
+	      StringBuilder sql = new StringBuilder();
+	      sql.append("SELECT PLATAFORMAID, ");
+	      sql.append("  SISTEMAID, ");
+	      sql.append("  CLASEID, ");
+	      sql.append("  BIBLIOTECAID, ");
+	      sql.append("  COMPONENTE, ");
+          sql.append("  PRODUCTOID, ");
+          sql.append("  FORMATOID ");
+	      sql.append("FROM CONSULTADETALLE ");
+	      sql.append("WHERE 1=1 ");
 	      
 	      List<String> params = new ArrayList<String>();
 	      
-	      if(!StringUtils.isEmpty(componente.getPlataformaID())) {
-	          sql += " AND PLATAFORMAID = ?";
-	          params.add(componente.getPlataformaID());
+	      if(!StringUtils.isEmpty(componente.getPlataformaId())) {
+	          sql.append(" AND PLATAFORMAID = ?");
+	          params.add(componente.getPlataformaId());
 	      }
 	      
-	      if(!StringUtils.isEmpty(componente.getSistemaID())) {
-	          sql += " AND SISTEMAID = ?";
-	          params.add(componente.getSistemaID());
+	      if(!StringUtils.isEmpty(componente.getSistemaId())) {
+	          sql.append(" AND SISTEMAID = ?");
+	          params.add(componente.getSistemaId());
 	      }
-	      
-	      if(!StringUtils.isEmpty(componente.getBibliotecaId())) {
-	          sql += " AND BIBLIOTECAID = ?";
-	          params.add(componente.getBibliotecaId());
-	      }
-	      
+
 	      if(!StringUtils.isEmpty(componente.getClaseId())) {
-	          sql += " AND CLASEID = ?";
+	          sql.append(" AND CLASEID = ?");
 	          params.add(componente.getClaseId());
 	      }
 	      
+	      if(!StringUtils.isEmpty(componente.getBibliotecaId())) {
+	          sql.append(" AND BIBLIOTECAID = ?");
+	          params.add(componente.getBibliotecaId());
+	      }
+	      
+	      
 	      List<Componente> componentes = jdbcTemplate.query(
-	          sql,
+	          sql.toString(),
 	          StringUtils.toStringArray(params),
-	          new RowMapper<Componente>() {
-	              public Componente mapRow(ResultSet rs, int rowNum) throws SQLException {
-	                  Componente componente = new Componente();
-	                  Blob blob = rs.getBlob("DOCTO");
-                      componente.setDocto(blob.getBytes(1, (int) blob.length()));
-                      componente.setPlataformaID(rs.getString("PLATAFORMAID"));
-                      componente.setSistemaID(rs.getString("SISTEMAID"));
-                      componente.setClaseId(rs.getString("CLASEID"));
-                      componente.setBibliotecaId(rs.getString("BIBLIOTECAID"));
-                      componente.setComponente(rs.getString("COMPONENTE"));
-                      componente.setProductoId(rs.getString("PRODUCTOID"));
-                      componente.setFormatoId(rs.getString("FORMATOID"));
-                      return componente;
-                  }
-              });
-          log.debug("componente: {}", componentes.toString());
+	          new ComponenteMapper());
+          log.debug("componentes encontrados: {}", componentes.size());
           return componentes;
     }
 
 	@Override
 	public List<Componente> resultcomp() {
-		String sql = "select distinct Plataformaid,Sistemaid,Claseid,Bibliotecaid,Componente from CONSULTADETALLE where "
-				+ "PLATAFORMAID= ? AND SISTEMAID= ? AND CLASEID=? AND BIBLIOTECAID=?";
-		List <Componente> filcomp= jdbcTemplate.query(sql, new RowMapper<Componente>() {
-            public Componente mapRow(ResultSet rs, int rowNum) throws SQLException {
-            	Componente compo = new Componente();
-            	compo.setPlataformaID(rs.getString("PLATAFORMAID"));
-            	compo.setSistemaID(rs.getString("SISTEMAID"));
-            	compo.setClaseId(rs.getString("CLASEID"));
-            	compo.setBibliotecaId(rs.getString("BIBLIOTECAID"));
-            	compo.setComponente(rs.getString("componente"));
-            	return compo; 
-            }
-		});
+	    StringBuilder sql = new StringBuilder();
+		sql.append("SELECT distinct COMPONENTE, ");
+		sql.append("  PLATAFORMAID, ");
+		sql.append("  SISTEMAID, ");
+		sql.append("  CLASEID, ");
+		sql.append("  BIBLIOTECAID, ");
+		sql.append("  COMPONENTE ");
+		sql.append("FROM CONSULTADETALLE ");
+		sql.append("WHERE PLATAFORMAID = ? ");
+		sql.append("AND SISTEMAID = ? ");
+		sql.append("AND CLASEID = ? ");
+		sql.append("AND BIBLIOTECAID = ? ");
+		List <Componente> filcomp= jdbcTemplate.query(sql.toString(), new ComponenteMapper());
 		return filcomp;
 	}
+	
+    public byte[] getDocument() {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT DOCTO FROM CONSULTADETALLE WHERE COMPONENTE = ?");
+        jdbcTemplate.query(sql.toString(), new RowMapper<byte[]>() {
+            public byte[] mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Blob blob = rs.getBlob("DOCTO");
+                return blob.getBytes(1, (int) blob.length());
+            }
+        });
+        return null;
+    }
+
+
+    private static final class ComponenteMapper implements RowMapper<Componente> {
+        
+        public Componente mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Componente compo = new Componente();
+        	compo.setPlataformaId(rs.getString("PLATAFORMAID"));
+        	compo.setSistemaId(rs.getString("SISTEMAID"));
+        	compo.setClaseId(rs.getString("CLASEID"));
+            compo.setBibliotecaId(rs.getString("BIBLIOTECAID"));
+        	compo.setComponente(rs.getString("COMPONENTE"));
+        	compo.setProductoId(rs.getString("PRODUCTOID"));
+            compo.setFormatoId(rs.getString("FORMATOID"));
+        	return compo;
+        }
+    }
+
 }
 

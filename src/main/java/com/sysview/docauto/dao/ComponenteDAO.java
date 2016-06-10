@@ -8,5 +8,6 @@ public interface ComponenteDAO {
 	
 	List<Componente> findcomponente(Componente componente);
 	List<Componente> resultcomp();
+	byte[] getDocument();
 	
 }

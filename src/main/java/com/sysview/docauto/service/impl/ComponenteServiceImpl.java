@@ -25,5 +25,10 @@ public class ComponenteServiceImpl implements ComponenteService{
 	public List<Componente> cmpfiltro() {
 		return componenteDao.resultcomp();
 	}
+	
+	@Override
+	public byte[] getDocument() {
+	    return componenteDao.getDocument();
+	}
 
 }

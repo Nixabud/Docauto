@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sysview.docauto.model.Componente;
-import com.sysview.docauto.model.Usuario;
 import com.sysview.docauto.service.ComponenteService;
 
 @RestController
@@ -31,12 +30,12 @@ public class ComponenteController {
 		headers = "Accept=" + MediaType.APPLICATION_JSON_VALUE,
 		consumes = MediaType.APPLICATION_JSON_VALUE,
 		produces = MediaType.APPLICATION_JSON_VALUE)
-	 public ResponseEntity<List<Componente>> componentesel(@RequestBody Componente componente){
-		List<Componente> componentes = componenteService.filterByComponente(componente);
-		  log.debug("plataforma: {}", componente.getPlataformaID());
-	      log.debug("sistema: {}", componente.getSistemaID());
+	 public ResponseEntity<List<Componente>> componentesel(@RequestBody Componente componente) {
+		  log.debug("plataforma: {}", componente.getPlataformaId());
+	      log.debug("sistema: {}", componente.getSistemaId());
 	      log.debug("biblioteca: {}", componente.getBibliotecaId());
 	      log.debug("clase: {}", componente.getClaseId());
+		List<Componente> componentes = componenteService.filterByComponente(componente);
 		return new ResponseEntity<List<Componente>>(componentes, HttpStatus.OK);
 	}
 	

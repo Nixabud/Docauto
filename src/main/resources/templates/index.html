@@ -17,75 +17,93 @@
             <h1>DocAuto Web</h1>
         </div>
     </div>
-<form id="consulta" action="/comcon">
-    <div class="row">
-        <div class="col-sm-6 col-sm-offset-3">
-        	<!--<tr>Componente:</tr>  -->
-        	<tr>Plataforma:</tr><select id ="plataformas" name="platform" class="form-control"> 
-                <option value=''>Todos</option>
-                <option th:each="plataforma : ${plataformas}"
-                    th:text="${plataforma.plataformaId}">
-                </option>
-	        </select>
-            <tr>Sistema:</tr><select id = "sistemas" name="system" class="form-control">
-                <option value="">Todos</option>
-                <option th:each="sistema : ${sistemas}"
-                    th:text="${sistema.sistemaId}">
-                </option>
-            </select>
-            <tr>Clase:</tr><select id = "clases" name="class" class="form-control">
-                <option value="">Todos</option>
-                <option th:each="clase : ${clases}"
-                    th:text="${clase.claseId}">
-                </option>
-            </select>
-            <tr>Biblioteca:</tr><select id = "bibliotecas" name="lib" class="form-control">
-                <option value="">Todos</option>
-                <option th:each="biblioteca : ${bibliotecas}"
-                    th:text="${biblioteca.bibliotecaId}">
-                </option>
-            </select>
+    <div class="container">
+        <div class="row">
+            <form id="consulta" action="/comcon">
+                <div class="col-sm-6 col-sm-offset-3">
+                	<!--<tr>Componente:</tr>  -->
+                	<tr>Plataforma:</tr><select id ="plataformas" name="platform" class="form-control"> 
+                        <option value=''>Todos</option>
+                        <option th:each="plataforma : ${plataformas}"
+                            th:text="${plataforma.plataformaId}">
+                        </option>
+        	        </select>
+                    <tr>Sistema:</tr><select id = "sistemas" name="system" class="form-control">
+                        <option value="">Todos</option>
+                        <option th:each="sistema : ${sistemas}"
+                            th:text="${sistema.sistemaId}">
+                        </option>
+                    </select>
+                    <tr>Clase:</tr><select id = "clases" name="class" class="form-control">
+                        <option value="">Todos</option>
+                        <option th:each="clase : ${clases}"
+                            th:text="${clase.claseId}">
+                        </option>
+                    </select>
+                    <tr>Biblioteca:</tr><select id = "bibliotecas" name="lib" class="form-control">
+                        <option value="">Todos</option>
+                        <option th:each="biblioteca : ${bibliotecas}"
+                            th:text="${biblioteca.bibliotecaId}">
+                        </option>
+                    </select>
+                    <br/>
+                    <button id="buscar" class="btn btn-primary pull-right" type="button">Buscar Componentes</button>        
+                </div>
+            </form>
         </div>
-        <button id="search" name="search" action="/">Buscar Componentes</button>        
-        <span class="subtitle">Componentes</span>
-<div class="results-block" id="results-Block">
-
-
- 		<!-- Tabla que muestra el filtrado -->
- 	
- 	<div class="results-block" id="results-Block">
-        <table border="1" style="width 20%" id="tablares">
-            <thead>
-            <tr>
-					<th>Plataforma</th>
-					<th>Sistema</th>
-                    <th>Biblioteca</th>
-                    <th>Clase</th>
-                    <th>Componente</th>
-            </tr>                  
-            </thead>
-    <tbody>
-		<tr th:each="componente : ${componentes}">
-	       	<td th:text="${platform}">Plataforma</td>
-			<td th:text="${sistemas.sistemaID}">Sistema</td>
-			<td th:text="${bibliotecas.bibliotecaId}">Biblioteca</td>
-			<td th:text="${clases.claseId}">Clase</td>
-			<td th:text="${componentes.componente}">Componente</td> 
-	    </tr> 
- 	</tbody>
-     </table>
-     </div>
-</div>
-    </div>
-</form>
-
+    
+        <div class="row">
+            <div class="col-sm-12">
+         		<!-- Tabla que muestra el filtrado -->
+         		<div class="table-responsive">
+                    <table id="componentes" class="table table-hover table-condensed">
+                        <thead>
+                            <tr>
+                				<th>Plataforma</th>
+                				<th>Sistema</th>
+                                <th>Biblioteca</th>
+                                <th>Clase</th>
+                                <th>Componente</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                
+                <!--
+             	<div class="results-block" id="results-Block">
+                    <table border="1" style="width 20%" id="tablares">
+                        <thead>
+                        <tr>
+            				<th>Plataforma</th>
+            				<th>Sistema</th>
+                            <th>Biblioteca</th>
+                            <th>Clase</th>
+                            <th>Componente</th>
+                        </tr>                  
+                        </thead>
+                        <tbody>
+                    		<tr th:each="componente : ${componentes}">
+                    	       	<td th:text="${platform}">Plataforma</td>
+                    			<td th:text="${sistemas.sistemaID}">Sistema</td>
+                    			<td th:text="${bibliotecas.bibliotecaId}">Biblioteca</td>
+                    			<td th:text="${clases.claseId}">Clase</td>
+                    			<td th:text="${componentes.componente}">Componente</td> 
+                    	    </tr> 
+                     	</tbody>
+                    </table>
+                </div>
+                -->
+            </div> <!-- fin .col-sm-12 -->
+        </div> <!-- fin .row -->
+    </div> <!-- fin .container -->
 
 		<!-- Salida de la Aplicacion -->
 
 
-<form th:action="@{/logout}" method="post">
-    <button class="btn btn-lg btn-primary" type="submit">Sign Out</button>
-</form>
+    <form th:action="@{/logout}" method="post" class="text-center">
+        <button class="btn btn-lg btn-primary" type="submit">Sign Out</button>
+    </form>
 
    
          
@@ -97,12 +115,12 @@
                 {
                     targets: 0,
                     name: "Plataforma",
-                    data: "plataformaID"
+                    data: "plataformaId"
                 },
                 {
                     targets: 1,
                     name: "Sistema",
-                    data: "sistemaID"
+                    data: "sistemaId"
                 },
                 {
                     targets: 2,
@@ -180,13 +198,13 @@
                 "componente": $("#componente").val()
             };
             $.ajax({
-                url: '/componentes/',
+                url: '/cmps/comcon',
                 method: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(search),
                 success: function(componentes) {
                     console.log(componentes);
-//                    $componenteTbl.rows.add(componentes);
+                    $componenteTbl.rows.add(componentes);
                 }
             });
 

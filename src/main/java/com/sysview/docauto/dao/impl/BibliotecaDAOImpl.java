@@ -20,7 +20,7 @@ public class BibliotecaDAOImpl implements BibliotecaDAO {
     private static final Logger log = LoggerFactory.getLogger(BibliotecaDAOImpl.class);
     
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
     
     @Override
     public List<Biblioteca> getBibliotecas() {
